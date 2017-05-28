@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block title %}My Page{% endblock %}
+{% block head %}
+{% parent %}
+
+{% endblock %}
+{% block content %}
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<div class="hand" id="thumb">
+    <div class="finger"></div>
+    <div class="finger"></div>
+    <div class="finger"></div>
+    <div class="finger"></div>
+    <div class="finger thumb"></div>
+    <div class="arm"></div>
+</div>
+<span class="hide" id="animation">+1</span>
+<script src="https://cdn.bootcss.com/systemjs/0.20.12/system.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.1/axios.min.js"></script>
+<script type="text/javascript" src="/js/add.js"></script>
+<script type="text/javascript">
+	SystemJS.config({
+	    baseURL: '/js'
+	});
+
+	function callback($) {
+	    var f = new $.thumb(0, $('#thumb'));
+	    f.clickAction();
+	}
+
+
+	SystemJS.import('index.es.js').then(function(m) {
+	    $.extend({
+	        thumb: m.default.thumb
+	    });
+	    callback($);
+	});
+
+</script>
+{% endblock %}
